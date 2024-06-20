@@ -1,6 +1,6 @@
 package org.task.appointmentservice.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.task.appointmentservice.entity.Appointment;
 import org.task.appointmentservice.service.AppointmentService;
@@ -9,9 +9,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/appointment")
+@AllArgsConstructor
 public class AppointmentController {
-    @Autowired
-    private AppointmentService appointmentService;
+    private final AppointmentService appointmentService;
 
     @PostMapping("/")
     public String createAppointment(@RequestBody Appointment appointment) {

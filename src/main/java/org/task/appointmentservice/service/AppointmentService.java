@@ -1,6 +1,6 @@
 package org.task.appointmentservice.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.task.appointmentservice.entity.Appointment;
 import org.task.appointmentservice.repository.AppointmentRepository;
@@ -8,9 +8,10 @@ import org.task.appointmentservice.repository.AppointmentRepository;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class AppointmentService {
-    @Autowired
-    AppointmentRepository appointmentRepository;
+
+    private final AppointmentRepository appointmentRepository;
 
     public String createAppointment(Appointment appointment) {
         //TODO: check if timeframe is available and if it is set it to taken, return true.
