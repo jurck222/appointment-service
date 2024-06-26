@@ -93,6 +93,26 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <container>
+                        <mainClass>org.task.appointmentservice.AppointmentServiceApplication</mainClass>
+                        <environment>
+                            <application.title>${project.name}</application.title>
+                            <application.version>${project.version}</application.version>
+                        </environment>
+                    </container>
+                    <from>
+                        <image>eclipse-temurin:21.0.3_9-jre</image>
+                    </from>
+                    <to>
+                        <image>registry.hub.docker.com/jurck222/${project.artifactId}</image>
+                    </to>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

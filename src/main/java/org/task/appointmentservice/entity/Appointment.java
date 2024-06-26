@@ -16,6 +16,7 @@ public class Appointment {
     private int id;
     private int doctorId;
     private int patientId;
+    private int availabilityId;
     private String service;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
