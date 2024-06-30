@@ -16,28 +16,28 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final RestTemplate restTemplate;
 
-    public String createAppointment(Appointment appointment) {
+    public Appointment createAppointment(Appointment appointment) {
         if (!appointment.checkNull()){
             boolean resp = Boolean.TRUE.equals(
                     restTemplate.getForObject("http://AVAILABILITY-SERVICE/api/v1/availability/book/" + appointment.getAvailabilityId(),
                             Boolean.class));
             if(resp) {
-                appointmentRepository.save(appointment);
-                return "Appointment created";
+                return appointmentRepository.save(appointment);
             }
-            return "Not available";
         }
-        return "Bad values";
+        throw new RuntimeException("Cant book this slot");
     }
 
-    public String deleteAppointment(int id) {
+    public void deleteAppointment(int id) {
         Optional<Appointment> appointment = appointmentRepository.findById(id);
         if(appointment.isPresent()){
             restTemplate.getForObject("http://AVAILABILITY-SERVICE/api/v1/availability/reset/" + appointment.get().getAvailabilityId(), Boolean.class);
             appointmentRepository.deleteById(id);
-            return "Appointment deleted";
+
         }
-        return "Appointment not found";
+        else {
+            throw new RuntimeException("Not found");
+        }
     }
 
     public List<Appointment> getAppointmentsForUser(int patientId) {

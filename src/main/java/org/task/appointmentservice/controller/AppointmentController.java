@@ -1,6 +1,7 @@
 package org.task.appointmentservice.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.task.appointmentservice.entity.Appointment;
 import org.task.appointmentservice.service.AppointmentService;
@@ -14,13 +15,13 @@ public class AppointmentController {
     private final AppointmentService appointmentService;
 
     @PostMapping("/")
-    public String createAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.createAppointment(appointment);
+    public ResponseEntity<Appointment> createAppointment(@RequestBody Appointment appointment) {
+        return ResponseEntity.ok(appointmentService.createAppointment(appointment));
     }
 
     @DeleteMapping("/{id}")
-    public String deleteAppointment(@PathVariable int id) {
-        return appointmentService.deleteAppointment(id);
+    public void deleteAppointment(@PathVariable int id) {
+        appointmentService.deleteAppointment(id);
     }
 
     @GetMapping("/user/{patientId}")
